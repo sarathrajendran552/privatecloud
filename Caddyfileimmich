@@ -1,0 +1,11 @@
+# Redirect all HTTP traffic to HTTPS on port 2284
+:2284 {
+    redir https://{host}{uri} permanent
+}
+
+# HTTPS site configuration with self-signed certificates
+:443 {
+    reverse_proxy immich-server:2283  # Reverse proxy to immich-server on port 2283
+    tls /etc/caddy/certificates/selfsigned.crt /etc/caddy/certificates/selfsigned.key
+}
+

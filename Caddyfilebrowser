@@ -1,0 +1,10 @@
+# Redirect all HTTP traffic to HTTPS
+:2285 {
+    redir https://{host}{uri} permanent
+}
+
+# HTTPS site configuration with self-signed certificates
+:443 {
+    reverse_proxy filebrowser:80  # Ensure correct port if filebrowser runs on port 80
+    tls /etc/caddy/certificates/selfsigned.crt /etc/caddy/certificates/selfsigned.key
+}
